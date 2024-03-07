@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import authRouter from "./routes/auth.routes.js";
 
 config();
 
@@ -31,6 +32,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/auth", authRouter);
 
 const port = process.env.PORT ?? 8080;
 
