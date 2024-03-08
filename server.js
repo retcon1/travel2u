@@ -3,9 +3,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import usersRouter from "./routes/users.routes.js";
 import authRouter from "./routes/auth.routes.js";
 
-config();
+config({ path: `.env.${process.env.NODE_ENV}` });
 
 // Original method of displaying connection
 // mongoose
@@ -39,6 +40,7 @@ const port = process.env.PORT ?? 8080;
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
+  console.log(`At the following URI: ${process.env.MONGO_URI}`)
 });
 
 export default app;
