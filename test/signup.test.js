@@ -80,6 +80,6 @@ describe("signup testing suite", () => {
     response.should.have.status(400);
     response.body.should.haveOwnProperty("message").equal("Username Taken");
     const numberOfUsers = await User.find();
-    numberOfUsers.should.have.lengthOf(5)
+    numberOfUsers.should.have.lengthOf(5);
   });
 });
