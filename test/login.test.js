@@ -39,7 +39,7 @@ describe("login testing suite", () => {
     const { user, token } = response.body;
     user.should.be.an("object");
     user.should.haveOwnProperty("username").equal(loginData.username);
-    user.should.haveOwnProperty("password").not.equal(loginData.username); // due to hashing
+    user.should.not.haveOwnProperty("password");
     token.should.be.a("string");
   });
 
