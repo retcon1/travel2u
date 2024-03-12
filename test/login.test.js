@@ -24,7 +24,6 @@ after(async () => {
 
 describe("login testing suite", () => {
   it("POST 200: should login the user when given a valid username and password", async () => {
-    // this.timeout(5000)
     // Arrange
     const loginData = {
       username: "johndoe",
