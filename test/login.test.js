@@ -24,6 +24,7 @@ after(async () => {
 
 describe("login testing suite", () => {
   it("POST 200: should login the user when given a valid username and password", async () => {
+    // this.timeout(5000)
     // Arrange
     const loginData = {
       username: "johndoe",
@@ -35,11 +36,11 @@ describe("login testing suite", () => {
 
     // Assert
     response.should.have.status(200);
-
-    const { user } = response.body;
+    const { user, token } = response.body;
     user.should.be.an("object");
     user.should.haveOwnProperty("username").equal(loginData.username);
     user.should.haveOwnProperty("password").not.equal(loginData.username); // due to hashing
+    token.should.be.a("string");
   });
 
   it("POST 404: should return an error message if the username is not found", async () => {
