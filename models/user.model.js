@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  favourites: {
+    type: Array,
+    required: true,
+  },
 });
 
 // Hashes password before saving

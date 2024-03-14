@@ -41,6 +41,8 @@ describe("signup testing suite", () => {
     newUser.should.be.an("object");
     newUser.should.haveOwnProperty("username").equal(signUpData.username);
     newUser.should.haveOwnProperty("password").not.equal(signUpData.username); // due to hashing
+    newUser.should.haveOwnProperty("favourites");
+    newUser.favourites.should.satisfy(Array.isArray);
     const numberOfUsers = await User.find();
     numberOfUsers.should.have.lengthOf(6);
   });

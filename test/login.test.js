@@ -39,6 +39,8 @@ describe("login testing suite", () => {
     user.should.be.an("object");
     user.should.haveOwnProperty("username").equal(loginData.username);
     user.should.not.haveOwnProperty("password");
+    user.should.haveOwnProperty("favourites");
+    user.favourites.should.satisfy(Array.isArray);
     token.should.be.a("string");
   });
 
