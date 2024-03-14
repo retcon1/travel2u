@@ -37,6 +37,8 @@ export const loginUser = async (req, res) => {
 export const changePassword = async (req, res) => {
   try {
     const { newPassword } = req.body;
+    if (!newPassword) return res.status(400).json({ message: "New password is invalid" });
+
     const user = res.user;
 
     user.password = newPassword;
