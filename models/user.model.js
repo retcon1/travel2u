@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   favourites: {
-    type: Array,
+    type: [String],
     required: true,
   },
 });
