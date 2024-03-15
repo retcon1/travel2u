@@ -81,7 +81,6 @@ describe("favourites testing suite", () => {
     response.body.should.haveOwnProperty("message").equal("Invalid favourite");
   });
 
-
   it("PATCH 400: should return an error message if given a non-string favourite", async () => {
     // Arrange
     const loginData = {
@@ -107,5 +106,36 @@ describe("favourites testing suite", () => {
     // Assert
     response.should.have.status(400);
     response.body.should.haveOwnProperty("message").equal("Invalid favourite");
+  });
+
+  it("DELETE 200: should delete the given, valid favourite", async () => {
+    // Arrange
+    const loginData = {
+      username: "janedoe",
+      password: "StrongPassword123",
+    };
+
+    const login = await chai.request(server).post("/auth/login").send(loginData);
+
+    const { token } = login.body;
+
+    const removeFaveData = {
+      faveToRemove: "London",
+    };
+
+    // Act
+    const response = await chai
+      .request(server)
+      .delete(TESTPATH)
+      .set("access-token", token)
+      .send(removeFaveData);
+
+    // Assert
+    response.should.have.status(200);
+
+    response.body.should.haveOwnProperty("user");
+    const { user } = response.body;
+    user.should.haveOwnProperty("favourites").with.lengthOf(1);
+    user.favourites[0].should.equal("New York");
   });
 });
