@@ -3,8 +3,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
-import usersRouter from "./routes/users.routes.js";
 import authRouter from "./routes/auth.routes.js";
+import favouritesRouter from "./routes/favourites.routes.js";
 
 config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -36,11 +36,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRouter);
 
+app.use("/favourites", favouritesRouter);
+
 const port = process.env.PORT ?? 8080;
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
-  console.log(`At the following URI: ${process.env.MONGO_URI}`)
+  console.log(`At the following URI: ${process.env.MONGO_URI}`);
 });
 
 export default app;
