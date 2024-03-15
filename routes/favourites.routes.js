@@ -1,5 +1,5 @@
 import express from "express";
-import { addFavourite, removeFavourite } from "../controllers/favourites.controller.js";
+import { addFavourite, getFavourites, removeFavourite } from "../controllers/favourites.controller.js";
 import verifyToken from "../middlewares/authJwt.js";
 const router = express.Router();
 
@@ -8,5 +8,8 @@ router.patch("/", verifyToken, addFavourite);
 
 // Remove favourite from user
 router.delete("/", verifyToken, removeFavourite);
+
+// Get favourites from user
+router.get("/", verifyToken, getFavourites);
 
 export default router;

@@ -192,4 +192,27 @@ describe("favourites testing suite", () => {
     response.should.have.status(400);
     response.body.should.haveOwnProperty("message").equal("Invalid favourite");
   });
+
+  it("GET 200: should return the user's favourites", async () => {
+    // Arrange
+    const loginData = {
+      username: "janedoe",
+      password: "StrongPassword123",
+    };
+
+    const login = await chai.request(server).post("/auth/login").send(loginData);
+
+    const { token } = login.body;
+
+    // Act
+    const response = await chai.request(server).get(TESTPATH).set("access-token", token);
+
+    // Assert
+    response.should.have.status(200);
+
+    response.body.should.haveOwnProperty("favourites");
+    const { favourites } = response.body;
+    favourites.should.be.an("array").with.lengthOf(2);
+    favourites.should.deep.equal(["London", "New York"]);
+  });
 });
