@@ -138,4 +138,58 @@ describe("favourites testing suite", () => {
     user.should.haveOwnProperty("favourites").with.lengthOf(1);
     user.favourites[0].should.equal("New York");
   });
+
+  it("DELETE 400: should return an error message if given a blank favourite", async () => {
+    // Arrange
+    const loginData = {
+      username: "janedoe",
+      password: "StrongPassword123",
+    };
+
+    const login = await chai.request(server).post("/auth/login").send(loginData);
+
+    const { token } = login.body;
+
+    const removeFaveData = {
+      faveToRemove: "",
+    };
+
+    // Act
+    const response = await chai
+      .request(server)
+      .delete(TESTPATH)
+      .set("access-token", token)
+      .send(removeFaveData);
+
+    // Assert
+    response.should.have.status(400);
+    response.body.should.haveOwnProperty("message").equal("Invalid favourite");
+  });
+
+  it("DELETE 400: should return an error message if given a non-string favourite", async () => {
+    // Arrange
+    const loginData = {
+      username: "janedoe",
+      password: "StrongPassword123",
+    };
+
+    const login = await chai.request(server).post("/auth/login").send(loginData);
+
+    const { token } = login.body;
+
+    const removeFaveData = {
+      faveToRemove: 1234,
+    };
+
+    // Act
+    const response = await chai
+      .request(server)
+      .delete(TESTPATH)
+      .set("access-token", token)
+      .send(removeFaveData);
+
+    // Assert
+    response.should.have.status(400);
+    response.body.should.haveOwnProperty("message").equal("Invalid favourite");
+  });
 });
