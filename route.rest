@@ -1,0 +1,44 @@
+GET http://localhost:4000/users
+
+###
+
+GET http://localhost:4000/users/123
+
+###
+POST http://localhost:4000/auth/signup
+Content-Type: application/json
+
+{
+    "username": "newFaveUser",
+    "password": "myPass123"
+}
+
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "newFaveUser",
+    "password": "myPass123"
+}
+
+###
+POST http://localhost:4000/auth/change-pass
+Content-Type: application/json
+
+{
+    "username": "changeTest",
+    "password": "myPass123",
+    "newPassword": "myNewPass1234"
+}
+
+###
+GET http://localhost:4000/favourites
+Content-Type: application/json
+access-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjJlMzkyMTQwMTRmMDRmMmYzZTY3NCIsImlhdCI6MTcxMDUzNjU0MywiZXhwIjoxNzEwNjIyOTQzfQ.lZcd3QLsflx8CPb9CtIuFZeOetcdhh6K4gIrxx1s5jI
+
+###
+
+GET http://localhost:4000/weather/tokyo
+Content-Type: application/json
+

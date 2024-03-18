@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth.routes.js";
 import favouritesRouter from "./routes/favourites.routes.js";
+import weatherRouter from "./routes/weather.routes.js";
 
 config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -37,6 +38,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRouter);
 
 app.use("/favourites", favouritesRouter);
+
+app.use("/weather", weatherRouter);
 
 const port = process.env.PORT ?? 8080;
 
