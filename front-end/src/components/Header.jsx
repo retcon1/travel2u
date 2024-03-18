@@ -60,6 +60,11 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
                 Home
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="/login">
+                Login
+              </a>
+            </li>
             <li
               className={`nav-item dropdown ${
                 currentFavourites.length > 0 ? "" : "visually-hidden"

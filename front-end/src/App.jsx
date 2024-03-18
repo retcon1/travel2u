@@ -6,6 +6,7 @@ import SearchResult from "./components/SearchResult";
 import { useEffect, useState } from "react";
 import Favourites from "./components/Favourites";
 import { getFavourites } from "./services/favourites.service";
+import Auth from "./components/Auth";
 
 const App = () => {
   const [currentFavourites, setCurrentFavourites] = useState([]);
@@ -36,6 +37,7 @@ const App = () => {
               />
             }
           />
+          <Route path="/login" element={<Auth />} />
           <Route path="/search/:location" element={<SearchResult weatherData={weatherData} />} />
           <Route
             path="/favourites"
