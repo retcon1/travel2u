@@ -13,7 +13,8 @@ export const registerUser = async (req, res) => {
       favourites: [],
     });
     const newUser = await user.save();
-    res.status(201).json({ newUser });
+    const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 86400 });
+    res.status(201).json({ newUser: { ...newUser, token } });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -28,7 +29,7 @@ export const loginUser = async (req, res) => {
     const userCopy = user.toObject();
     delete userCopy.password;
 
-    return res.status(200).json({ user: userCopy, token });
+    return res.status(200).json({ user: { ...userCopy, token } });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

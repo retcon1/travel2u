@@ -10,6 +10,6 @@ router.patch("/", verifyToken, addFavourite);
 router.delete("/", verifyToken, removeFavourite);
 
 // Get favourites from user
-router.get("/", verifyToken, getFavourites);
+router.get("/",  verifyToken, getFavourites);
 
 export default router;

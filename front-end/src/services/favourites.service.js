@@ -1,16 +1,20 @@
-export const getFavourites = () => {
-  if (!JSON.parse(localStorage.getItem("myLocationFavourites"))) return [];
-  return JSON.parse(localStorage.getItem("myLocationFavourites"));
-};
+import axios from "axios";
 
-export const updateFavourites = (updatedArr) => {
-  localStorage.setItem("myLocationFavourites", JSON.stringify(updatedArr));
-};
+const appAPI = axios.create({
+  baseURL: `http://localhost:4000/favourites`,
+});
 
-export const checkFavouriteExists = (fave) => {
-  const currentFaves = getFavourites();
-  if (!currentFaves) return false;
-  return currentFaves.filter((el) => el === fave).length > 0;
+export const getFavourites = async () => {
+  const token = JSON.parse(localStorage.getItem("user")).token;
+  if (!token) return;
+  try {
+    const response = await appAPI.get(`/`, {
+      headers: { "access-token": token },
+    });
+    return response.data.favourites;
+  } catch (error) {
+    console.error("Error getting favourites", error.response.data);
+  }
 };
 
 export const addFavourite = (newFave) => {
@@ -19,6 +23,18 @@ export const addFavourite = (newFave) => {
   localStorage.setItem("myLocationFavourites", JSON.stringify(favourites));
   console.log("Added to favourites!");
 };
+
+export const updateFavourites = (updatedArr) => {
+  localStorage.setItem("myLocationFavourites", JSON.stringify(updatedArr));
+};
+
+export const checkFavouriteExists = (fave) => {
+  const currentFaves = JSON.parse(localStorage.getItem("user")).favourites;
+  if (!currentFaves) return false;
+  return currentFaves.filter((el) => el === fave).length > 0;
+};
+
+
 
 export const removeFavourite = (favourite) => {
   const newFavourites = getFavourites().filter((fave) => fave !== favourite);
