@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const appAPI = axios.create({
+const appAPI = axios.create ({
   baseURL: `http://localhost:4000`,
 });
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await axios.post("http://localhost:4000/auth/login", {
+    const response = await appAPI.post("/auth/login", {
       username,
       password,
     });
@@ -27,4 +27,13 @@ export const registerUser = async (username, password) => {
     console.error("Error registering", error.response.data);
     return error.response.data;
   }
+};
+
+export const setUser = (user) => {
+  localStorage.setItem("user", JSON.stringify(user));
+};
+
+export const getUser = () => {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
 };
