@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/assets/logo.png";
 import { getWeatherData } from "../services/weatherData.service";
+import { getUser } from "../services/auth.service";
 
 const Header = ({ setWeatherData, location, setLocation, currentFavourites }) => {
   const navigate = useNavigate();
   const [notFound, setNotFound] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [showDropdown2, setShowDropdown2] = useState(false);
+  const user = getUser();
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -94,9 +96,26 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
               </div>
             </li>
             {user ? (
-              <>
-                <li className="m-2">Logged in as: {user.username}</li>
-                <li className="nav-item">
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  onClick={() => setShowDropdown2(!showDropdown2)}
+                >
+                  Logged in as: {user.username}
+                </a>
+                <div
+                  className={`dropdown-menu ${showDropdown2 ? "show" : ""}`}
+                  aria-labelledby="navbarDropdown"
+                >
+                  <a className="nav-link active" aria-current="page" href="/change-password">
+                    Change Password
+                  </a>
+                  <div className="dropdown-divider"></div>
                   <a
                     className="nav-link active"
                     aria-current="page"
@@ -105,8 +124,8 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
                   >
                     Logout
                   </a>
-                </li>
-              </>
+                </div>
+              </li>
             ) : (
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/login">

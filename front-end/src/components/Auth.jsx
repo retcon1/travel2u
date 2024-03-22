@@ -27,7 +27,7 @@ const Auth = () => {
       alert("Passwords do not match");
       return;
     }
-
+    console.log(username, password)
     const response = await registerUser(username, password);
     if (response.message) {
       alert(response.message);

@@ -9,6 +9,6 @@ router.post("/signup", registerUser);
 
 router.post("/login", validateUser, loginUser);
 
-router.post("/change-pass", [validateUser, verifyToken], changePassword);
+router.patch("/change-pass", [validateUser, verifyToken], changePassword);
 
 export default router;

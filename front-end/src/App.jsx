@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import Favourites from "./components/Favourites";
 import { getFavourites } from "./services/favourites.service";
 import Auth from "./components/Auth";
+import ChangePassword from "./components/ChangePassword";
+import { getUser } from "./services/auth.service";
 
 const App = () => {
   const [currentFavourites, setCurrentFavourites] = useState([]);
@@ -14,8 +16,8 @@ const App = () => {
   const [location, setLocation] = useState("");
   const [user, setUser] = useState(() => {
     // Try to get the user from localStorage when initializing state
-    const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
+    const savedUser = getUser();
+    return savedUser ? savedUser : null;
   });
 
   useEffect(() => {
@@ -58,6 +60,8 @@ const App = () => {
               />
             }
           />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </div>
       <Footer />

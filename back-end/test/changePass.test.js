@@ -41,7 +41,7 @@ describe("change password test suite", () => {
     // Act
     const response = await chai
       .request(server)
-      .post(TESTPATH)
+      .patch(TESTPATH)
       .set("access-token", token)
       .send(changePassData);
 
@@ -60,7 +60,7 @@ describe("change password test suite", () => {
     };
 
     // Act
-    const response = await chai.request(server).post(TESTPATH).send(changePassData);
+    const response = await chai.request(server).patch(TESTPATH).send(changePassData);
 
     // Assert
     response.should.have.status(403);
@@ -79,7 +79,7 @@ describe("change password test suite", () => {
     // Act
     const response = await chai
       .request(server)
-      .post(TESTPATH)
+      .patch(TESTPATH)
       .set("access-token", "INVALID.TOKEN")
       .send(changePassData);
 
@@ -106,7 +106,7 @@ describe("change password test suite", () => {
     // Act
     const response = await chai
       .request(server)
-      .post(TESTPATH)
+      .patch(TESTPATH)
       .set("access-token", token)
       .send(changePassData);
 
