@@ -32,7 +32,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     const addFaveData = {
       newFave: "Tokyo",
@@ -63,7 +63,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     const addFaveData = {
       newFave: "",
@@ -90,7 +90,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     const addFaveData = {
       newFave: 1234,
@@ -117,7 +117,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     const removeFaveData = {
       faveToRemove: "London",
@@ -148,7 +148,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     const removeFaveData = {
       faveToRemove: "",
@@ -175,7 +175,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     const removeFaveData = {
       faveToRemove: 1234,
@@ -202,7 +202,7 @@ describe("favourites testing suite", () => {
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
 
-    const { token } = login.body;
+    const { token } = login.body.user;
 
     // Act
     const response = await chai.request(server).get(TESTPATH).set("access-token", token);

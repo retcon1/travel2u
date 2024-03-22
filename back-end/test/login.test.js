@@ -35,13 +35,13 @@ describe("login testing suite", () => {
 
     // Assert
     response.should.have.status(200);
-    const { user, token } = response.body;
+    const { user } = response.body;
     user.should.be.an("object");
     user.should.haveOwnProperty("username").equal(loginData.username);
     user.should.not.haveOwnProperty("password");
     user.should.haveOwnProperty("favourites");
+    user.should.haveOwnProperty("token");
     user.favourites.should.satisfy(Array.isArray);
-    token.should.be.a("string");
   });
 
   it("POST 404: should return an error message if the username is not found", async () => {

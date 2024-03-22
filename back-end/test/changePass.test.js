@@ -36,7 +36,7 @@ describe("change password test suite", () => {
     };
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
-    const token = login.body.token;
+    const { token } = login.body.user;
 
     // Act
     const response = await chai
@@ -101,7 +101,7 @@ describe("change password test suite", () => {
     };
 
     const login = await chai.request(server).post("/auth/login").send(loginData);
-    const token = login.body.token;
+    const { token } = login.body.user;
 
     // Act
     const response = await chai
