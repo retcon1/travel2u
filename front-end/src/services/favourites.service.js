@@ -1,27 +1,66 @@
+import axios from "axios";
+
+const appAPI = axios.create({
+  baseURL: `http://localhost:4000/favourites`,
+});
+
 export const getFavourites = () => {
-  if (!JSON.parse(localStorage.getItem("myLocationFavourites"))) return [];
-  return JSON.parse(localStorage.getItem("myLocationFavourites"));
+  // Unnecessary to make a request to the server for this data
+  // const token = JSON.parse(localStorage.getItem("user")).token;
+  // if (!token) return;
+  // try {
+  //   const response = await appAPI.get(`/`, {
+  //     headers: { "access-token": token },
+  //   });
+  //   return response.data.favourites;
+  // } catch (error) {
+  //   console.error("Error getting favourites", error.response.data);
+  // }
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return [];
+  return user.favourites ? user.favourites : [];
 };
 
-export const updateFavourites = (updatedArr) => {
-  localStorage.setItem("myLocationFavourites", JSON.stringify(updatedArr));
+export const addFavourite = async (newFave) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = JSON.parse(localStorage.getItem("user")).token;
+  if (!token) alert("No token found, please logout and login again");
+
+  try {
+    const response = await appAPI.patch(
+      `/`,
+      { newFave },
+      {
+        headers: { "access-token": token },
+      }
+    );
+    user.favourites = response.data.user.favourites;
+    localStorage.setItem("user", JSON.stringify(user));
+    return response.data;
+  } catch (error) {
+    console.error("Error adding favourite", error);
+  }
 };
 
 export const checkFavouriteExists = (fave) => {
-  const currentFaves = getFavourites();
-  if (!currentFaves) return false;
-  return currentFaves.filter((el) => el === fave).length > 0;
+  const favourites = JSON.parse(localStorage.getItem("user")).favourites;
+  return favourites.includes(fave);
 };
 
-export const addFavourite = (newFave) => {
-  let favourites = getFavourites();
-  favourites.push(newFave);
-  localStorage.setItem("myLocationFavourites", JSON.stringify(favourites));
-  console.log("Added to favourites!");
-};
+export const removeFavourite = async (faveToRemove) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.token;
+  if (!token) return;
+  try {
+    const response = await appAPI.delete(`/`, {
+      data: { faveToRemove },
+      headers: { "access-token": token },
+    });
 
-export const removeFavourite = (favourite) => {
-  const newFavourites = getFavourites().filter((fave) => fave !== favourite);
-  updateFavourites(newFavourites);
-  console.log("Favourite removed!");
+    user.favourites = response.data.user.favourites;
+    localStorage.setItem("user", JSON.stringify(user));
+    return response.data;
+  } catch (error) {
+    console.error("Error removing favourite", error.response.data);
+  }
 };

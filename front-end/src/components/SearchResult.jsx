@@ -7,7 +7,7 @@ import {
 } from "../services/favourites.service";
 import Map from "./Map";
 
-const SearchResult = ({ weatherData }) => {
+const SearchResult = ({ weatherData, setCurrentFavourites }) => {
   const [currentFave, setCurrentFave] = useState(false);
 
   useEffect(() => {
@@ -28,6 +28,9 @@ const SearchResult = ({ weatherData }) => {
               className="bi bi-bookmark-check-fill mx-2 check"
               onClick={() => {
                 removeFavourite(weatherData.name);
+                setCurrentFavourites((prevFavourites) =>
+                  prevFavourites.filter((fave) => fave !== weatherData.name)
+                );
                 setCurrentFave(false);
               }}
             />
@@ -42,6 +45,7 @@ const SearchResult = ({ weatherData }) => {
               className="bi bi-bookmark-check mx-2 check"
               onClick={() => {
                 addFavourite(weatherData.name);
+                setCurrentFavourites((prevFavourites) => [...prevFavourites, weatherData.name]);
                 setCurrentFave(true);
               }}
             />

@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/assets/logo.png";
 import { getWeatherData } from "../services/weatherData.service";
-import { UserContext } from "../App";
 
 const Header = ({ setWeatherData, location, setLocation, currentFavourites }) => {
   const navigate = useNavigate();
   const [notFound, setNotFound] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const { user } = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log(e.target.textContent);
     setNotFound(false);
     const data = await getWeatherData(location);
     if (!data) {
@@ -68,27 +66,6 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
                 Home
               </a>
             </li>
-            {user ? (
-              <>
-                <li className="m-2">Logged in as: {user.username}</li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link active"
-                    aria-current="page"
-                    href="/"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </a>
-                </li>
-              </>
-            ) : (
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/login">
-                  Login
-                </a>
-              </li>
-            )}
             <li
               className={`nav-item dropdown ${
                 currentFavourites.length > 0 ? "" : "visually-hidden"
@@ -116,6 +93,27 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
                 </a>
               </div>
             </li>
+            {user ? (
+              <>
+                <li className="m-2">Logged in as: {user.username}</li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </a>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="/login">
+                  Login
+                </a>
+              </li>
+            )}
           </ul>
           {notFound ? <p className="mt-3 mx-4">That place wasn't found, please try again!</p> : ""}
           <form className="d-flex" role="search">

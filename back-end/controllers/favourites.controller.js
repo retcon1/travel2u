@@ -17,7 +17,10 @@ export const addFavourite = async (req, res) => {
 
     await user.save();
 
-    res.status(201).json({ user });
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
+    res.status(201).json({ user: userResponse });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -39,7 +42,10 @@ export const removeFavourite = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ user });
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
+    res.status(200).json({ user: userResponse });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
