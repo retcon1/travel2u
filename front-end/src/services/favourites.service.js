@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUser } from "./auth.service";
 
 const appAPI = axios.create({
   baseURL: `http://localhost:4000/favourites`,
@@ -16,14 +17,14 @@ export const getFavourites = () => {
   // } catch (error) {
   //   console.error("Error getting favourites", error.response.data);
   // }
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getUser();
   if (!user) return [];
   return user.favourites ? user.favourites : [];
 };
 
 export const addFavourite = async (newFave) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = JSON.parse(localStorage.getItem("user")).token;
+  const user = getUser();
+  const token = user.token;
   if (!token) alert("No token found, please logout and login again");
 
   try {
@@ -43,12 +44,12 @@ export const addFavourite = async (newFave) => {
 };
 
 export const checkFavouriteExists = (fave) => {
-  const favourites = JSON.parse(localStorage.getItem("user")).favourites;
+  const favourites = getUser().favourites;
   return favourites.includes(fave);
 };
 
 export const removeFavourite = async (faveToRemove) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getUser();
   const token = user.token;
   if (!token) return;
   try {

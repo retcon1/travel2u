@@ -46,10 +46,31 @@ describe("signup testing suite", () => {
     numberOfUsers.should.have.lengthOf(6);
   });
 
-  it("POST 400: should return an error code if given a blank username or password", async () => {
+  it("POST 400: should return an error code if given a blank username", async () => {
     // Arrange
     const signUpData = {
       username: "",
+      password: "test",
+    };
+
+    // Act
+    const response = await chai.request(server).post(TESTPATH).send(signUpData);
+
+    // Assert
+    response.should.have.status(400);
+    response.body.should
+      .haveOwnProperty("message")
+      .equal(
+        "Username and password are required"
+      );
+    const numberOfUsers = await User.find();
+    numberOfUsers.should.have.lengthOf(5);
+  });
+
+  it("POST 400: should return an error code if given a blank password", async () => {
+    // Arrange
+    const signUpData = {
+      username: "test",
       password: "",
     };
 
@@ -61,7 +82,7 @@ describe("signup testing suite", () => {
     response.body.should
       .haveOwnProperty("message")
       .equal(
-        "User validation failed: username: Path `username` is required., password: Path `password` is required."
+        "Username and password are required"
       );
     const numberOfUsers = await User.find();
     numberOfUsers.should.have.lengthOf(5);

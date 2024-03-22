@@ -3,20 +3,23 @@ import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
   const { username, password } = req.body;
+  if (!username || !password)
+    return res.status(400).json({ message: "Username and password are required" });
+
   const existingUser = await User.findOne({ username });
   if (existingUser) return res.status(400).json({ message: "Username Taken" });
 
   try {
-    const user = new User({
+    const newUser = await User.create({
       username: username,
       password: password,
       favourites: [],
     });
-    const newUser = await user.save();
+
     const responseUser = newUser.toObject();
     delete responseUser.password;
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 86400 });
+    const token = jwt.sign({ id: newUser.id }, process.env.SECRET, { expiresIn: 86400 });
     res.status(201).json({ newUser: { ...responseUser, token } });
   } catch (err) {
     res.status(400).json({ message: err.message });
