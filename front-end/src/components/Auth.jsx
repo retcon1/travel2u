@@ -35,6 +35,7 @@ const Auth = () => {
     if (response.message) {
       alert(response.message);
     } else {
+      console.log(response.newUser)
       setUser(response.newUser);
       localStorage.setItem("user", JSON.stringify(response.newUser));
       navigate("/");

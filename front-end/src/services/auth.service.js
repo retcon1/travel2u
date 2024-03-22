@@ -10,7 +10,7 @@ export const loginUser = async (username, password) => {
       username,
       password,
     });
-    axios.defaults.headers.common["access-token"] = `Bearer ${response.data.token}`;
+    axios.defaults.headers.common["access-token"] = `${response.data.token}`;
     return response.data;
   } catch (error) {
     console.error("Error logging in", error.response.data);
@@ -21,7 +21,7 @@ export const loginUser = async (username, password) => {
 export const registerUser = async (username, password) => {
   try {
     const response = await appAPI.post("/signup", { username, password });
-    axios.defaults.headers.common["access-token"] = `Bearer ${response.data.token}`;
+    axios.defaults.headers.common["access-token"] = `${response.data.token}`;
     return response.data;
   } catch (error) {
     console.error("Error registering", error.response.data);

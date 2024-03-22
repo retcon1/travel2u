@@ -19,14 +19,9 @@ const App = () => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
-  console.log(currentFavourites);
 
-  useEffect( () => {
-    const grabFavourites = async () => {
-      const favourites = await getFavourites();
-      setCurrentFavourites(favourites);
-    };
-    grabFavourites();
+  useEffect(() => {
+    setCurrentFavourites(getFavourites());
   }, []);
 
   return (

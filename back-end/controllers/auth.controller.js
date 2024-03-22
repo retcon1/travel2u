@@ -13,8 +13,11 @@ export const registerUser = async (req, res) => {
       favourites: [],
     });
     const newUser = await user.save();
+    const responseUser = newUser.toObject();
+    delete responseUser.password;
+
     const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 86400 });
-    res.status(201).json({ newUser: { ...newUser, token } });
+    res.status(201).json({ newUser: { ...responseUser, token } });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

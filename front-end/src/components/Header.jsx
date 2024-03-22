@@ -12,7 +12,6 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log(e.target.textContent);
     setNotFound(false);
     const data = await getWeatherData(location);
     if (!data) {
