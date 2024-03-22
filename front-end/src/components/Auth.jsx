@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { loginUser, registerUser } from "../services/auth.service";
-import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
@@ -8,7 +7,6 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,7 +15,6 @@ const Auth = () => {
     if (response.message) {
       alert(response.message);
     } else {
-      setUser(response.user);
       localStorage.setItem("user", JSON.stringify(response.user));
       navigate("/");
     }
@@ -35,8 +32,7 @@ const Auth = () => {
     if (response.message) {
       alert(response.message);
     } else {
-      console.log(response.newUser)
-      setUser(response.newUser);
+      console.log(response.newUser);
       localStorage.setItem("user", JSON.stringify(response.newUser));
       navigate("/");
     }

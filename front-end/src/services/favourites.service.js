@@ -16,8 +16,9 @@ export const getFavourites = () => {
   // } catch (error) {
   //   console.error("Error getting favourites", error.response.data);
   // }
-  if (!localStorage.getItem("user")) return [];
-  return JSON.parse(localStorage.getItem("user")).favourites ? JSON.parse(localStorage.getItem("user")).favourites : [];
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return [];
+  return user.favourites ? user.favourites : [];
 };
 
 export const addFavourite = async (newFave) => {

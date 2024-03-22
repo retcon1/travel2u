@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/assets/logo.png";
 import { getWeatherData } from "../services/weatherData.service";
-import { UserContext } from "../App";
 
 const Header = ({ setWeatherData, location, setLocation, currentFavourites }) => {
   const navigate = useNavigate();
   const [notFound, setNotFound] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const { user } = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleSearch = async (e) => {
     e.preventDefault();
