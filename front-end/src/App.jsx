@@ -43,11 +43,19 @@ const App = () => {
             }
           />
           <Route path="/login" element={<Auth />} />
-          <Route path="/search/:location" element={<SearchResult weatherData={weatherData} />} />
+          <Route
+            path="/search/:location"
+            element={
+              <SearchResult weatherData={weatherData} setCurrentFavourites={setCurrentFavourites} />
+            }
+          />
           <Route
             path="/favourites"
             element={
-              <Favourites currentFavourites={currentFavourites} setWeatherData={setWeatherData} />
+              <Favourites
+                currentFavourites={currentFavourites}
+                setWeatherData={setWeatherData}
+              />
             }
           />
         </Routes>

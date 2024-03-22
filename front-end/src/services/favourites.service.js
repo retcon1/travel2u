@@ -24,7 +24,8 @@ export const getFavourites = () => {
 export const addFavourite = async (newFave) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = JSON.parse(localStorage.getItem("user")).token;
-  if (!token) return;
+  if (!token) alert("No token found, please logout and login again");
+
   try {
     const response = await appAPI.patch(
       `/`,

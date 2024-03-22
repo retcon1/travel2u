@@ -9,7 +9,6 @@ const FavouriteItem = ({ name, setWeatherData }) => {
   const navigate = useNavigate();
 
   const handleFaveClick = async (e) => {
-    console.log(e.target.textContent);
     e.preventDefault();
     const data = await getWeatherData(e.target.textContent);
     setWeatherData(data);
