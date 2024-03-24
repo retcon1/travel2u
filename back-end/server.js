@@ -29,7 +29,7 @@ db.once("open", () => console.log("Connected to database"));
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.use(bodyParser.json());
 
