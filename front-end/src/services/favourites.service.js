@@ -45,6 +45,7 @@ export const addFavourite = async (newFave) => {
 
 export const checkFavouriteExists = (fave) => {
   const favourites = getUser().favourites;
+  if (!favourites) return false;
   return favourites.includes(fave);
 };
 
