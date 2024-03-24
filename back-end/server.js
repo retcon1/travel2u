@@ -29,11 +29,7 @@ db.once("open", () => console.log("Connected to database"));
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://benstravel2u.netlify.app/",
-  })
-);
+app.use(cors());
 
 app.use(bodyParser.json());
 
