@@ -2,7 +2,7 @@ import axios from "axios";
 import { getUser } from "./auth.service";
 
 const appAPI = axios.create({
-  baseURL: `http://localhost:4000/favourites`,
+  baseURL: `https://travel2u-api.onrender.com/favourites`,
 });
 
 export const getFavourites = () => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const appAPI = axios.create({
-  baseURL: `http://localhost:4000/auth`,
+  baseURL: `https://travel2u-api.onrender.com/auth`,
 });
 
 export const loginUser = async (username, password) => {
@@ -33,13 +33,17 @@ export const changePassword = async (password, newPassword) => {
   const user = getUser();
   const token = user.token;
   try {
-    const response = await appAPI.patch("/change-pass", {
-      username: user.username,
-      password,
-      newPassword,
-    }, {
-      headers: { "access-token": token },
-    });
+    const response = await appAPI.patch(
+      "/change-pass",
+      {
+        username: user.username,
+        password,
+        newPassword,
+      },
+      {
+        headers: { "access-token": token },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error changing password", error.response.data);
