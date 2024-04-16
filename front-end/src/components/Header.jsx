@@ -9,17 +9,21 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
   const [notFound, setNotFound] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
+  const [loading, setLoading] = useState(false);
   const user = getUser();
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setNotFound(false);
+    setLoading(true);
     const data = await getWeatherData(location);
     if (!data) {
+      setLoading(false);
       setNotFound(true);
     } else {
       setWeatherData(data);
       navigate(`/search/${location}`);
+      setLoading(false);
     }
   };
 
@@ -155,6 +159,15 @@ const Header = ({ setWeatherData, location, setLocation, currentFavourites }) =>
             >
               Search
             </button>
+            {loading ? (
+              <img
+                src="./spinner.svg"
+                alt="loading spinner"
+                style={{ width: "30px", height: "30px", marginLeft: "10px" }}
+              />
+            ) : (
+              ""
+            )}
           </form>
         </div>
       </div>
