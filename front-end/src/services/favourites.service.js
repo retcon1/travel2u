@@ -44,9 +44,8 @@ export const addFavourite = async (newFave) => {
 };
 
 export const checkFavouriteExists = (fave) => {
-  const user = getUser();
-  if (!user || !user.favourites) return false;
-  return user.favourites.includes(fave);
+  const favourites = getFavourites();
+  return favourites.includes(fave);
 };
 
 export const removeFavourite = async (faveToRemove) => {
