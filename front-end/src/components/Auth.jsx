@@ -17,6 +17,7 @@ const Auth = () => {
     } else {
       localStorage.setItem("user", JSON.stringify(response.user));
       navigate("/");
+      window.location.reload();
     }
   };
 
@@ -34,6 +35,7 @@ const Auth = () => {
     } else {
       localStorage.setItem("user", JSON.stringify(response.newUser));
       navigate("/");
+      window.location.reload();
     }
   };
 

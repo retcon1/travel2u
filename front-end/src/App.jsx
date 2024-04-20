@@ -48,16 +48,17 @@ const App = () => {
           <Route
             path="/search/:location"
             element={
-              <SearchResult weatherData={weatherData} setCurrentFavourites={setCurrentFavourites} />
+              <SearchResult
+                weatherData={weatherData}
+                setCurrentFavourites={setCurrentFavourites}
+                user={user}
+              />
             }
           />
           <Route
             path="/favourites"
             element={
-              <Favourites
-                currentFavourites={currentFavourites}
-                setWeatherData={setWeatherData}
-              />
+              <Favourites currentFavourites={currentFavourites} setWeatherData={setWeatherData} />
             }
           />
           <Route path="/change-password" element={<ChangePassword />} />
